@@ -1,27 +1,34 @@
 package com.example.projectvoucher.domain.employee;
 
 
-import com.example.projectvoucher.app.controller.request.EmployeeCreateRequest;
 import com.example.projectvoucher.app.controller.response.EmployeeResponse;
+import com.example.projectvoucher.stoarage.employee.EmployeeEntity;
+import com.example.projectvoucher.stoarage.employee.EmployeeRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class EmployeeService {
-    private final Map<Long, EmployeeResponse> employeeResponseMap = new HashMap<>();
+    private final EmployeeRepository employeeRepository;
 
+    public EmployeeService(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
 
     //사원 생성
-    public Long create(final EmployeeCreateRequest request){
-        Long no = employeeResponseMap.size() + 1L;
-        employeeResponseMap.put(no,new EmployeeResponse(no,request.name(),request.position(),request.department()));
-        return no;
+    public Long create(final String name, final String position, final String department){
+        final EmployeeEntity employee = employeeRepository.save(new EmployeeEntity(name, position, department));
+
+        return employee.id();
 
     }
     //사원 조회
     public EmployeeResponse get(final Long no) {
-        return employeeResponseMap.get(no);
+        final EmployeeEntity employeeEntity = employeeRepository.findById(no)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+
+        return new EmployeeResponse(employeeEntity.id(), employeeEntity.name(), employeeEntity.position(), employeeEntity.department());
+
+
+
     }
 }

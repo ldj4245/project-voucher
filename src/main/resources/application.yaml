@@ -13,3 +13,10 @@ spring:
       username: root
       password: root1234
       driver-class-name: com.mysql.cj.jdbc.Driver
+
+logging:
+    level:
+      # spring boot 2.x, hibernate 5.x ?? ??? ??
+      #   org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+        org.hibernate.SQL: TRACE
+

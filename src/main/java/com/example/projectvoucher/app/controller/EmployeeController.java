@@ -20,7 +20,7 @@ public class EmployeeController {
     //회원 생성
     @PostMapping("/api/v1/employee")
     public Long create(@RequestBody final EmployeeCreateRequest request){
-        return employeeService.create(request);
+        return employeeService.create(request.name(), request.position(), request.department());
     }
 
 
