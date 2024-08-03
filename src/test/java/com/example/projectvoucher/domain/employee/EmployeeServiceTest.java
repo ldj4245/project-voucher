@@ -28,6 +28,7 @@ class EmployeeServiceTest {
         EmployeeResponse response = employeeService.get(no);
 
         //then
+
         assertThat(response).isNotNull();
         assertThat(response.no()).isEqualTo(no);
         assertThat(response.name()).isEqualTo(name);
