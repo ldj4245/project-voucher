@@ -26,7 +26,7 @@ public class EmployeeController {
 
     //회원 조회
    @GetMapping("/api/v1/employee/{no}")
-    public EmployeeResponse get(@PathVariable final Long no) {
+    public EmployeeResponse get(@PathVariable("no") final Long no) {
         return employeeService.get(no);
     }
 
