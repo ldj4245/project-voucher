@@ -1,4 +1,4 @@
-package com.example.projectvoucher.stoarage;
+package com.example.projectvoucher.storage;
 
 
 import jakarta.persistence.*;

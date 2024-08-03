@@ -1,4 +1,4 @@
-package com.example.projectvoucher.stoarage.employee;
+package com.example.projectvoucher.storage.employee;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

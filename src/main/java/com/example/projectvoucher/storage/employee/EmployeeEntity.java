@@ -1,6 +1,6 @@
-package com.example.projectvoucher.stoarage.employee;
+package com.example.projectvoucher.storage.employee;
 
-import com.example.projectvoucher.stoarage.BaseEntity;
+import com.example.projectvoucher.storage.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
