@@ -1,8 +1,9 @@
 package com.example.projectvoucher.domain.service;
 
+import com.example.projectvoucher.common.type.VoucherAmountType;
 import com.example.projectvoucher.common.type.VoucherStatusType;
-import com.example.projectvoucher.stoarage.voucher.VoucherEntity;
-import com.example.projectvoucher.stoarage.voucher.VoucherRepository;
+import com.example.projectvoucher.storage.voucher.VoucherEntity;
+import com.example.projectvoucher.storage.voucher.VoucherRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +30,8 @@ class VoucherServiceTest {
         //given
         final LocalDate validFrom = LocalDate.now();
         final LocalDate validTo = LocalDate.now().plusDays(30);
-        final Long amount = 10000L;
 
-        final String code = voucherService.publish(validFrom,validTo,amount);
+        final String code = voucherService.publish(validFrom,validTo, VoucherAmountType.KRW_30000);
 
 
         //when
@@ -53,7 +53,7 @@ class VoucherServiceTest {
         //given
         final LocalDate validFrom = LocalDate.now();
         final LocalDate validTo = LocalDate.now().plusDays(30);
-        final Long amount = 10000L;
+        final VoucherAmountType amount = VoucherAmountType.KRW_100000;
 
         final String code = voucherService.publish(validFrom,validTo,amount);
 
@@ -79,7 +79,7 @@ class VoucherServiceTest {
         //given
         final LocalDate validForm = LocalDate.now();
         final LocalDate validTo = LocalDate.now().plusDays(30);
-        final Long amount = 10000L;
+        final VoucherAmountType amount = VoucherAmountType.KRW_100000;
 
         final String code = voucherService.publish(validForm,validTo,amount);
 
