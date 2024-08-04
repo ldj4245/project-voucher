@@ -1,6 +1,6 @@
 package com.example.projectvoucher.domain.employee;
 
-import com.example.projectvoucher.app.controller.response.EmployeeResponse;
+import com.example.projectvoucher.app.controller.employee.response.EmployeeResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
