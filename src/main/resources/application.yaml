@@ -9,14 +9,13 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
   datasource:
-      url: jdbc:mysql://localhost:13306/project-voucher-mysql
-      username: root
-      password: root1234
-      driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:13306/project-voucher-mysql
+    username: root
+    password: root1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 logging:
-    level:
-      # spring boot 2.x, hibernate 5.x ?? ??? ??
-      #   org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-        org.hibernate.SQL: TRACE
-
+  level:
+    # spring boot 2.x, hibernate 5.x 에서 가능한 설정
+    #    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.orm.jdbc.bind: TRACE
