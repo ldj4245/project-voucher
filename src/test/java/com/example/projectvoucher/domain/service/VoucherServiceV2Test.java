@@ -5,6 +5,7 @@ import com.example.projectvoucher.common.type.RequesterType;
 import com.example.projectvoucher.common.type.VoucherAmountType;
 import com.example.projectvoucher.common.type.VoucherStatusType;
 import com.example.projectvoucher.storage.voucher.VoucherEntity;
+import com.example.projectvoucher.storage.voucher.VoucherHistoryEntity;
 import com.example.projectvoucher.storage.voucher.VoucherRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,9 +36,8 @@ class VoucherServiceV2Test {
                 new RequestContext(RequesterType.PARTNER, UUID.randomUUID().toString());
         final LocalDate validFrom = LocalDate.now();
         final LocalDate validTo = LocalDate.now().plusDays(30);
-
         final String code = voucherService.publishV2(requestContext,validFrom,validTo, VoucherAmountType.KRW_30000);
-
+        final VoucherAmountType amount = VoucherAmountType.KRW_30000;
 
         //when
         final VoucherEntity voucherEntity = voucherRepository.findByCode(code).get();
@@ -48,6 +48,16 @@ class VoucherServiceV2Test {
         assertThat(voucherEntity.status()).isEqualTo(VoucherStatusType.PUBLISH);
         assertThat(voucherEntity.validFrom()).isEqualTo(validFrom);
         assertThat(voucherEntity.validTo()).isEqualTo(validTo);
+        assertThat(voucherEntity.amount()).isEqualTo(amount);
+
+
+        //history
+        final VoucherHistoryEntity voucherHistoryEntity = voucherEntity.histories().get(0);
+        assertThat(voucherHistoryEntity.orderId()).isNotNull();
+        assertThat(voucherHistoryEntity.requesterType()).isEqualTo(requestContext.requesterType());
+        assertThat(voucherHistoryEntity.requesterId()).isEqualTo(requestContext.requesterId());
+        assertThat(voucherHistoryEntity.status()).isEqualTo(VoucherStatusType.PUBLISH);
+        assertThat(voucherHistoryEntity.description()).isEqualTo("테스트 발행");
 
     }
 
@@ -75,6 +85,8 @@ class VoucherServiceV2Test {
         assertThat(voucherEntity.validFrom()).isEqualTo(validFrom);
         assertThat(voucherEntity.validTo()).isEqualTo(validTo);
         assertThat(voucherEntity.updatedAt()).isNotEqualTo(voucherEntity.cratedAt());
+
+
 
 
     }
