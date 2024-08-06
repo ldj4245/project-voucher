@@ -87,5 +87,34 @@ class VoucherServiceV3Test {
         //then
     }
 
+    @DisplayName("상품권은 발행 요청자만 사용 불가 처리를 할 수 있다.")
+    @Test
+    void test02(){
+
+        //given
+        final RequestContext requestContext = new RequestContext(RequesterType.PARTNER, UUID.randomUUID().toString());
+        final VoucherAmountType amount = VoucherAmountType.KRW_30000;
+
+        final String contractCode = "CT0001";
+        final String code = voucherService.publishV3(requestContext,contractCode,amount);
+
+
+        final RequestContext otherRequestContext = new RequestContext(RequesterType.USER, UUID.randomUUID().toString());
+
+
+        //when
+        assertThatThrownBy(() -> voucherService.disableV3(otherRequestContext,code))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("권한이 없습니다.");
+
+
+        //then
+        VoucherEntity voucherEntity = voucherRepository.findByCode(code).get();
+
+        assertThat(voucherEntity.code()).isEqualTo(code);
+        assertThat(voucherEntity.status()).isEqualTo(VoucherStatusType.PUBLISH);
+
+    }
+
 
 }

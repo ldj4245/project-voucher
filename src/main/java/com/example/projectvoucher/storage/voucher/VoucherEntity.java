@@ -86,4 +86,12 @@ public class VoucherEntity extends BaseEntity {
         this.status = VoucherStatusType.USE;
         this.histories.add(voucherHistoryEntity);
     }
+
+    public VoucherHistoryEntity publishHistory(){
+        return histories.stream().filter(
+                voucherHistoryEntity -> voucherHistoryEntity.status().equals(VoucherStatusType.PUBLISH))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("발행 이력이 존재하지 않습니다."));
+
+    }
 }
