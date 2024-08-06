@@ -20,6 +20,7 @@ public class LocalDateInit {
     @PostConstruct
     public void init(){
         contractRepository.save(new ContractEntity("CT0001", LocalDate.now().minusDays(7),LocalDate.now().plusDays(7),366*5));
+        contractRepository.save(new ContractEntity("CT0010", LocalDate.now().minusDays(30), LocalDate.now().minusDays(7), 366 * 5));
 
     }
 }
